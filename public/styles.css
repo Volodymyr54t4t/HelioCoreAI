@@ -209,6 +209,17 @@ body {
   transform: translateY(-2px);
 }
 
+.nav-link.predictions-link {
+  background: rgba(0, 255, 136, 0.1);
+  border-color: rgba(0, 255, 136, 0.3);
+  color: var(--neon-green);
+}
+
+.nav-link.predictions-link:hover {
+  background: rgba(0, 255, 136, 0.2);
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+}
+
 .nav-link.developers-link {
   background: rgba(170, 68, 255, 0.1);
   border-color: rgba(170, 68, 255, 0.3);
