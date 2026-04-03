@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Розробники | HelioCore AI</title>
+    <link rel="stylesheet" href="developers.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="background-effects">
+        <div class="grid-overlay"></div>
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
+        <div class="particles" id="particles"></div>
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <a href="index.html" class="back-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5" />
+                    <path d="M12 19l-7-7 7-7" />
+                </svg>
+                <span>Назад до дашборду</span>
+            </a>
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 60 60" class="sun-icon">
+                        <circle cx="30" cy="30" r="12" fill="url(#sunGradient)" />
+                        <g class="sun-rays">
+                            <line x1="30" y1="5" x2="30" y2="12" />
+                            <line x1="30" y1="48" x2="30" y2="55" />
+                            <line x1="5" y1="30" x2="12" y2="30" />
+                            <line x1="48" y1="30" x2="55" y2="30" />
+                            <line x1="12.3" y1="12.3" x2="17.3" y2="17.3" />
+                            <line x1="42.7" y1="42.7" x2="47.7" y2="47.7" />
+                            <line x1="12.3" y1="47.7" x2="17.3" y2="42.7" />
+                            <line x1="42.7" y1="17.3" x2="47.7" y2="12.3" />
+                        </g>
+                        <defs>
+                            <radialGradient id="sunGradient">
+                                <stop offset="0%" stop-color="#ffee00" />
+                                <stop offset="100%" stop-color="#ff8800" />
+                            </radialGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>HelioCore</h1>
+                    <span class="logo-subtitle">AI Energy Monitor</span>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <a href="about.html" class="nav-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 16v-4" />
+                        <path d="M12 8h.01" />
+                    </svg>
+                    <span>Про проєкт</span>
+                </a>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-pulse"></span>
+                    <span>Development Team</span>
+                </div>
+                <h1 class="hero-title">
+                    <span class="title-line">Розробники</span>
+                    <span class="title-gradient">HelioCore AI</span>
+                </h1>
+                <p class="hero-description">
+                    Талановита команда молодих розробників, яка створила інноваційну платформу для моніторингу сонячної
+                    енергії з використанням штучного інтелекту.
+                </p>
+            </div>
+        </section>
+
+        <!-- Developers Grid -->
+        <section class="developers-section">
+            <div class="developers-grid">
+
+                <!-- Developer 1: Andrii Khomych -->
+                <div class="developer-card" data-developer="andrii">
+                    <div class="card-glow"></div>
+                    <div class="card-content">
+                        <div class="avatar-container">
+                            <div class="avatar-ring"></div>
+                            <div class="avatar">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                </svg>
+                            </div>
+                            <div class="avatar-particles">
+                                <span></span><span></span><span></span><span></span>
+                            </div>
+                        </div>
+                        <div class="developer-info">
+                            <h2 class="developer-name">Хомич Андрій</h2>
+                            <span class="developer-role">Full-Stack Developer</span>
+                            <div class="developer-tags">
+                                <span class="tag">Web Development</span>
+                                <span class="tag">Embedded Systems</span>
+                                <span class="tag">AI/ML</span>
+                            </div>
+                        </div>
+                        <div class="achievements-preview">
+                            <div class="achievement-badge gold">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                </svg>
+                                <span>6 нагород</span>
+                            </div>
+                            <div class="achievement-badge special">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="8" r="7" />
+                                    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
+                                </svg>
+                                <span>Абсолютний переможець</span>
+                            </div>
+                        </div>
+                        <button class="view-achievements-btn" data-modal="andrii-modal">
+                            <span>Переглянути здобутки</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14" />
+                                <path d="M12 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Developer 2: Volodymyr Chyzhevskyi -->
+                <div class="developer-card" data-developer="volodymyr">
+                    <div class="card-glow"></div>
+                    <div class="card-content">
+                        <div class="avatar-container">
+                            <div class="avatar-ring"></div>
+                            <div class="avatar">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                </svg>
+                            </div>
+                            <div class="avatar-particles">
+                                <span></span><span></span><span></span><span></span>
+                            </div>
+                        </div>
+                        <div class="developer-info">
+                            <h2 class="developer-name">Чижевський Володимир</h2>
+                            <span class="developer-subtitle">Володимирович</span>
+                            <span class="developer-role">Hardware & Software Engineer</span>
+                            <div class="developer-tags">
+                                <span class="tag">IoT</span>
+                                <span class="tag">Embedded</span>
+                                <span class="tag">STEM</span>
+                            </div>
+                        </div>
+                        <div class="achievements-preview">
+                            <div class="achievement-badge gold">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                </svg>
+                                <span>16 нагород</span>
+                            </div>
+                            <div class="achievement-badge special gold-medal">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="8" r="7" />
+                                    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
+                                </svg>
+                                <span>INFOMATRIX Gold</span>
+                            </div>
+                        </div>
+                        <button class="view-achievements-btn" data-modal="volodymyr-modal">
+                            <span>Переглянути здобутки</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14" />
+                                <path d="M12 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Team Stats -->
+        <section class="team-stats">
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                        </svg>
+                    </div>
+                    <span class="stat-value">22+</span>
+                    <span class="stat-label">Нагород разом</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="8" r="7" />
+                            <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
+                        </svg>
+                    </div>
+                    <span class="stat-value">3</span>
+                    <span class="stat-label">Абсолютних перемог</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                        </svg>
+                    </div>
+                    <span class="stat-value">2</span>
+                    <span class="stat-label">Учасники ISEF</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                        </svg>
+                    </div>
+                    <span class="stat-value">1</span>
+                    <span class="stat-label">Золото INFOMATRIX</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>HelioCore AI &copy; 2025-2026 | Розроблено з любовʼю в Україні</p>
+        </footer>
+    </div>
+
+    <!-- Modal: Andrii Khomych -->
+    <div class="modal-overlay" id="andrii-modal">
+        <div class="modal">
+            <button class="modal-close" aria-label="Закрити">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
+            <div class="modal-header">
+                <div class="modal-avatar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                </div>
+                <div class="modal-title">
+                    <h2>Хомич Андрій</h2>
+                    <span class="modal-role">Full-Stack Developer</span>
+                </div>
+            </div>
+            <div class="modal-content">
+                <h3 class="achievements-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="8" r="7" />
+                        <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
+                    </svg>
+                    Здобутки та нагороди
+                </h3>
+                <div class="achievements-list">
+                    <div class="achievement-item gold">
+                        <div class="achievement-year">2025</div>
+                        <div class="achievement-details">
+                            <h4>Міський конкурс з Web-дизайну «Шкільний сайт»</h4>
+                            <span class="achievement-result">Диплом І ступеня</span>
+                        </div>
+                        <div class="achievement-medal">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="achievement-item special">
+                        <div class="achievement-year">2025</div>
+                        <div class="achievement-details">
+                            <h4>Міський конкурс на найкращу програму для компʼютера</h4>
+                            <p class="achievement-category">Напрямок «Прикладні програми»</p>
+                            <span class="achievement-result absolute">Диплом абсолютного переможця</span>
+                        </div>
+                        <div class="achievement-medal special">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="achievement-item gold">
+                        <div class="achievement-year">2025</div>
+                        <div class="achievement-details">
+                            <h4>Міський конкурс на найкращу програму для компʼютера</h4>
+                            <p class="achievement-category">Напрямок «Прикладні програми»</p>
+                            <span class="achievement-result">Диплом І ступеня</span>
+                        </div>
+                        <div class="achievement-medal">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="achievement-item bronze">
+                        <div class="achievement-year">2025</div>
+                        <div class="achievement-details">
+                            <h4>Хакатон Embedded-розробка</h4>
+                            <p class="achievement-category">Житомирська політехніка</p>
+                            <span class="achievement-result">Диплом III ступеня</span>
+                        </div>
+                        <div class="achievement-medal bronze">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="achievement-item gold">
+                        <div class="achievement-year">2025</div>
+                        <div class="achievement-details">
+                            <h4>Конкурс-захист науково-дослідницьких робіт МАН України</h4>
+                            <p class="achievement-category">І етап</p>
+                            <span class="achievement-result">Диплом І ступеня</span>
+                        </div>
+                        <div class="achievement-medal">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="achievement-item gold">
+                        <div class="achievement-year">2026</div>
+                        <div class="achievement-details">
+                            <h4>Конкурс-захист науково-дослідницьких робіт МАН України</h4>
+                            <p class="achievement-category">ІІ етап</p>
+                            <span class="achievement-result">Диплом І ступеня</span>
+                        </div>
+                        <div class="achievement-medal">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Volodymyr Chyzhevskyi -->
+    <div class="modal-overlay" id="volodymyr-modal">
+        <div class="modal modal-large">
+            <button class="modal-close" aria-label="Закрити">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
+            <div class="modal-header">
+                <div class="modal-avatar gold-border">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                </div>
+                <div class="modal-title">
+                    <h2>Чижевський Володимир Володимирович</h2>
+                    <span class="modal-role">Hardware & Software Engineer</span>
+                </div>
+            </div>
+            <div class="modal-content">
+                <h3 class="achievements-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="8" r="7" />
+                        <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
+                    </svg>
+                    Здобутки та нагороди
+                </h3>
+                <div class="achievements-grid">
+                    <!-- Column 1 -->
+                    <div class="achievements-column">
+                        <div class="achievement-item special">
+                            <div class="achievement-year">2025</div>
+                            <div class="achievement-details">
+                                <h4>Шкільний сайт</h4>
+                                <span class="achievement-result absolute">Абсолютний переможець</span>
+                            </div>
+                            <div class="achievement-medal special">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="achievement-item gold">
+                            <div class="achievement-year">2025</div>
+                            <div class="achievement-details">
+                                <h4>На найкращу програму для ПК (1)</h4>
+                                <span class="achievement-result">Диплом І ступеня</span>
+                            </div>
+                            <div class="achievement-medal">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="achievement-item gold">
+                            <div class="achievement-year">2025</div>
+                            <div class="achievement-details">
+                                <h4>На найкращу програму для ПК (2)</h4>
+                                <span class="achievement-result">Диплом І ступеня</span>
+                            </div>
+                            <div class="achievement-medal">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="achievement-item gold">
+                            <div class="achievement-year">2025</div>
+                            <div class="achievement-details">
+                                <h4>Міжнародний (Вінниця) (1)</h4>
+                                <span class="achievement-result">Диплом І ступеня</span>
+                            </div>
+                            <div class="achievement-medal">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="achievement-item gold">
+                            <div class="achievement-year">2025</div>
+                            <div class="achievement-details">
+                                <h4>Міжнародний (Вінниця) (2)</h4>
+                                <span class="achievement-result">Диплом І ступеня</span>
+                            </div>
+                            <div class="achievement-medal">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="achievement-item participant">
+                            <div class="achievement-year">2025</div>
+                            <div class="achievement-details">
+                                <h4>Міжнародний (Вінниця) (3)</h4>
+                                <span class="achievement-result">Учасник</span>
+                            </div>
+                        </div>
+                        <div class="achievement-item bronze">
+                            <div class="achievement-year">2025</div>
+                            <div class="achievement-details">
+                                <h4>Міжнародний CreDiCo (1)</h4>
+                                <span class="achievement-result">Диплом ІІІ ступеня</span>
+                            </div>
+                            <div class="achievement-medal bronze">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="achievement-item participant">
+                            <div class="achievement-year">2025</div>
+                            <div class="achievement-details">
+                                <h4>Міжнародний CreDiCo (2)</h4>
+                                <span class="achievement-result">Учасник</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column 2 -->
+                    <div class="achievements-column">
+                        <div class="achievement-item special">
+                            <div class="achievement-year">2025</div>
+                            <div class="achievement-details">
+                                <h4>МАН (Міськовий етап)</h4>
+                                <span class="achievement-result absolute">Абсолютний переможець</span>
+                            </div>
+                            <div class="achievement-medal special">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="achievement-item silver">
+                            <div class="achievement-year">2025</div>
+                            <div class="achievement-details">
+                                <h4>МАН (Обласний етап)</h4>
+                                <span class="achievement-result">Диплом ІІ ступеня</span>
+                            </div>
+                            <div class="achievement-medal silver">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="achievement-item team">
+                            <div class="achievement-year">2025</div>
+                            <div class="achievement-details">
+                                <h4>Хакатон з Embedded-розробки</h4>
+                                <p class="achievement-category">Командна робота</p>
+                                <span class="achievement-result">IV місце</span>
+                            </div>
+                            <div class="team-badge">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                    <circle cx="9" cy="7" r="4" />
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="achievement-item silver team">
+                            <div class="achievement-year">2025</div>
+                            <div class="achievement-details">
+                                <h4>Хакатон STEM</h4>
+                                <p class="achievement-category">Командна робота</p>
+                                <span class="achievement-result">Диплом ІІ ступеня</span>
+                            </div>
+                            <div class="achievement-medal silver">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="achievement-item infomatrix-gold">
+                            <div class="achievement-year">2025</div>
+                            <div class="achievement-details">
+                                <h4>INFOMATRIX</h4>
+                                <span class="achievement-result gold-text">ЗОЛОТО</span>
+                            </div>
+                            <div class="achievement-medal gold-medal">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="achievement-item participant">
+                            <div class="achievement-year">2025</div>
+                            <div class="achievement-details">
+                                <h4>INFOMATRIX (додатково)</h4>
+                                <span class="achievement-result">Учасник</span>
+                            </div>
+                        </div>
+                        <div class="achievement-item isef">
+                            <div class="achievement-year">2025</div>
+                            <div class="achievement-details">
+                                <h4>ISEF (1)</h4>
+                                <p class="achievement-category">Міжнародний науковий конкурс</p>
+                                <span class="achievement-result">Учасник</span>
+                            </div>
+                            <div class="isef-badge">ISEF</div>
+                        </div>
+                        <div class="achievement-item isef">
+                            <div class="achievement-year">2025</div>
+                            <div class="achievement-details">
+                                <h4>ISEF (2)</h4>
+                                <p class="achievement-category">Міжнародний науковий конкурс</p>
+                                <span class="achievement-result">Учасник</span>
+                            </div>
+                            <div class="isef-badge">ISEF</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="developers.js"></script>
+</body>
+
+</html>
