@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HelioCore AI - Моніторинг Сонячної Енергії</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="background-effects">
+    <div class="grid-overlay"></div>
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+  </div>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 60 60" class="sun-icon">
+            <circle cx="30" cy="30" r="12" fill="url(#sunGradient)"/>
+            <g class="sun-rays">
+              <line x1="30" y1="5" x2="30" y2="12"/>
+              <line x1="30" y1="48" x2="30" y2="55"/>
+              <line x1="5" y1="30" x2="12" y2="30"/>
+              <line x1="48" y1="30" x2="55" y2="30"/>
+              <line x1="12.3" y1="12.3" x2="17.3" y2="17.3"/>
+              <line x1="42.7" y1="42.7" x2="47.7" y2="47.7"/>
+              <line x1="12.3" y1="47.7" x2="17.3" y2="42.7"/>
+              <line x1="42.7" y1="17.3" x2="47.7" y2="12.3"/>
+            </g>
+            <defs>
+              <radialGradient id="sunGradient">
+                <stop offset="0%" stop-color="#ffee00"/>
+                <stop offset="100%" stop-color="#ff8800"/>
+              </radialGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <h1>HelioCore</h1>
+          <span class="logo-subtitle">AI Energy Monitor</span>
+        </div>
+      </div>
+      <div class="header-status">
+        <div class="connection-status" id="connectionStatus">
+          <span class="status-dot"></span>
+          <span class="status-text">Підключено</span>
+        </div>
+        <div class="last-update">
+          Оновлено: <span id="lastUpdate">--:--:--</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Dashboard -->
+    <main class="dashboard">
+      <!-- Status Banner -->
+      <div class="status-banner" id="statusBanner">
+        <div class="status-icon" id="statusIcon">●</div>
+        <div class="status-info">
+          <span class="status-label" id="statusLabel">Завантаження...</span>
+          <span class="status-description" id="statusDescription">Очікування даних з сервера</span>
+        </div>
+      </div>
+
+      <!-- Metrics Grid -->
+      <div class="metrics-grid">
+        <!-- Battery Card -->
+        <div class="metric-card battery-card">
+          <div class="card-header">
+            <div class="card-icon battery-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="7" width="18" height="10" rx="2"/>
+                <path d="M22 11v2"/>
+                <rect x="4" y="9" width="0" height="6" rx="1" id="batteryFill" class="battery-fill-rect"/>
+              </svg>
+            </div>
+            <h3>Батарея</h3>
+          </div>
+          <div class="metric-value">
+            <span id="batteryValue">--</span>
+            <span class="metric-unit">%</span>
+          </div>
+          <div class="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill battery-progress" id="batteryProgress"></div>
+              <div class="progress-glow"></div>
+            </div>
+            <div class="progress-markers">
+              <span>0%</span>
+              <span>50%</span>
+              <span>100%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Voltage Card -->
+        <div class="metric-card voltage-card">
+          <div class="card-header">
+            <div class="card-icon voltage-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+              </svg>
+            </div>
+            <h3>Напруга</h3>
+          </div>
+          <div class="metric-value">
+            <span id="voltageValue">--</span>
+            <span class="metric-unit">V</span>
+          </div>
+          <div class="voltage-gauge">
+            <div class="gauge-track">
+              <div class="gauge-fill" id="voltageGauge"></div>
+            </div>
+            <div class="gauge-labels">
+              <span>8V</span>
+              <span>10V</span>
+              <span>12V</span>
+              <span>14V</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Light Card -->
+        <div class="metric-card light-card">
+          <div class="card-header">
+            <div class="card-icon light-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+              </svg>
+            </div>
+            <h3>Освітлення</h3>
+          </div>
+          <div class="metric-value">
+            <span id="lightValue">--</span>
+            <span class="metric-unit">lux</span>
+          </div>
+          <div class="light-indicator">
+            <div class="light-bar">
+              <div class="light-fill" id="lightFill"></div>
+              <div class="light-segments">
+                <span class="segment" data-level="low"></span>
+                <span class="segment" data-level="medium"></span>
+                <span class="segment" data-level="high"></span>
+              </div>
+            </div>
+            <div class="light-labels">
+              <span>Темно</span>
+              <span>Хмарно</span>
+              <span>Сонячно</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Status Card -->
+        <div class="metric-card status-card">
+          <div class="card-header">
+            <div class="card-icon status-icon-small">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+              </svg>
+            </div>
+            <h3>Статус</h3>
+          </div>
+          <div class="status-display">
+            <div class="status-ring" id="statusRing">
+              <svg viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" class="ring-bg"/>
+                <circle cx="50" cy="50" r="45" class="ring-progress" id="statusRingProgress"/>
+              </svg>
+              <div class="status-center">
+                <span class="status-emoji" id="statusEmoji">⚡</span>
+              </div>
+            </div>
+            <div class="status-details">
+              <span class="status-main" id="statusMain">--</span>
+              <span class="status-sub" id="statusSub">Очікування...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Recommendations -->
+      <section class="ai-section">
+        <div class="section-header">
+          <div class="ai-badge">
+            <span class="ai-pulse"></span>
+            <span class="ai-text">AI</span>
+          </div>
+          <h2>Рекомендації штучного інтелекту</h2>
+        </div>
+        <div class="recommendations-list" id="recommendationsList">
+          <div class="recommendation-card loading">
+            <div class="rec-icon">🔄</div>
+            <div class="rec-content">
+              <p>Аналізуємо дані...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Control Panel -->
+      <section class="control-section">
+        <div class="section-header">
+          <h2>Панель керування</h2>
+        </div>
+        <div class="controls-grid">
+          <button class="control-btn eco-btn" data-action="eco-mode">
+            <div class="btn-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/>
+                <path d="M8.5 8.5v.01"/>
+                <path d="M16 15.5v.01"/>
+                <path d="M12 12v.01"/>
+                <path d="M11 17v.01"/>
+                <path d="M7 14v.01"/>
+              </svg>
+            </div>
+            <span class="btn-label">Режим економії</span>
+            <span class="btn-status">Вимкнено</span>
+          </button>
+          
+          <button class="control-btn boost-btn" data-action="boost-charge">
+            <div class="btn-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+              </svg>
+            </div>
+            <span class="btn-label">Прискорена зарядка</span>
+            <span class="btn-status">Готово</span>
+          </button>
+          
+          <button class="control-btn reset-btn" data-action="reset">
+            <div class="btn-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                <path d="M3 3v5h5"/>
+              </svg>
+            </div>
+            <span class="btn-label">Перезавантаження</span>
+            <span class="btn-status">Система OK</span>
+          </button>
+          
+          <button class="control-btn calibrate-btn" data-action="calibrate">
+            <div class="btn-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+              </svg>
+            </div>
+            <span class="btn-label">Калібрування</span>
+            <span class="btn-status">Датчики OK</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Notification Toast -->
+      <div class="toast-container" id="toastContainer"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>HelioCore AI v1.0 | Моніторинг сонячної енергії</p>
+      <p class="footer-tech">Node.js + Express + PostgreSQL</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
