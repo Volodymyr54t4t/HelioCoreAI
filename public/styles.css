@@ -185,6 +185,7 @@ body {
 .header-nav {
   display: flex;
   align-items: center;
+  gap: 12px;
 }
 
 .nav-link {
@@ -206,6 +207,17 @@ body {
   background: rgba(0, 212, 255, 0.2);
   box-shadow: var(--glow-cyan);
   transform: translateY(-2px);
+}
+
+.nav-link.developers-link {
+  background: rgba(170, 68, 255, 0.1);
+  border-color: rgba(170, 68, 255, 0.3);
+  color: var(--neon-purple);
+}
+
+.nav-link.developers-link:hover {
+  background: rgba(170, 68, 255, 0.2);
+  box-shadow: 0 0 20px rgba(170, 68, 255, 0.5);
 }
 
 .nav-link svg {

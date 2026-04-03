@@ -199,6 +199,49 @@ body {
   background-clip: text;
 }
 
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: rgba(0, 212, 255, 0.1);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  color: var(--neon-cyan);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  background: rgba(0, 212, 255, 0.2);
+  box-shadow: var(--glow-cyan);
+  transform: translateY(-2px);
+}
+
+.nav-link.developers-link {
+  background: rgba(170, 68, 255, 0.1);
+  border-color: rgba(170, 68, 255, 0.3);
+  color: var(--neon-purple);
+}
+
+.nav-link.developers-link:hover {
+  background: rgba(170, 68, 255, 0.2);
+  box-shadow: var(--glow-purple);
+}
+
+.nav-link svg {
+  width: 18px;
+  height: 18px;
+}
+
 .logo-subtitle {
   font-size: 0.8rem;
   color: var(--text-secondary);
