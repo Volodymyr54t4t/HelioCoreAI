@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HelioCore AI - Статистика та Аналітика</title>
+    <link rel="stylesheet" href="css/statistics.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="background-effects">
+        <div class="grid-overlay"></div>
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 60 60" class="sun-icon">
+                        <circle cx="30" cy="30" r="12" fill="url(#sunGradient)" />
+                        <g class="sun-rays">
+                            <line x1="30" y1="5" x2="30" y2="12" />
+                            <line x1="30" y1="48" x2="30" y2="55" />
+                            <line x1="5" y1="30" x2="12" y2="30" />
+                            <line x1="48" y1="30" x2="55" y2="30" />
+                            <line x1="12.3" y1="12.3" x2="17.3" y2="17.3" />
+                            <line x1="42.7" y1="42.7" x2="47.7" y2="47.7" />
+                            <line x1="12.3" y1="47.7" x2="17.3" y2="42.7" />
+                            <line x1="42.7" y1="17.3" x2="47.7" y2="12.3" />
+                        </g>
+                        <defs>
+                            <radialGradient id="sunGradient">
+                                <stop offset="0%" stop-color="#ffee00" />
+                                <stop offset="100%" stop-color="#ff8800" />
+                            </radialGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>HelioCore</h1>
+                    <span class="logo-subtitle">AI Статистика</span>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <a href="index.html" class="nav-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                        <polyline points="9 22 9 12 15 12 15 22" />
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="predictions.html" class="nav-link predictions-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    <span>Прогнози</span>
+                </a>
+                <a href="about.html" class="nav-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 16v-4" />
+                        <path d="M12 8h.01" />
+                    </svg>
+                    <span>Про проект</span>
+                </a>
+            </nav>
+            <div class="header-status">
+                <div class="data-status">
+                    <span class="data-pulse"></span>
+                    <span>Жмві дані</span>
+                </div>
+                <div class="last-update">
+                    Оновлено: <span id="lastUpdate">--:--:--</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="statistics-dashboard">
+
+            <!-- Page Title -->
+            <div class="page-title">
+                <div class="title-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 20V10" />
+                        <path d="M12 20V4" />
+                        <path d="M6 20v-6" />
+                    </svg>
+                </div>
+                <div class="title-text">
+                    <h1>Статистика та Аналітика</h1>
+                    <p>Повний аналіз роботи системи сонячних панелей</p>
+                </div>
+                <div class="time-range-selector">
+                    <button class="time-btn active" data-range="day">День</button>
+                    <button class="time-btn" data-range="week">Тиждень</button>
+                    <button class="time-btn" data-range="month">Місяь</button>
+                    <button class="time-btn" data-range="year">Рік</button>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <section class="quick-stats">
+                <div class="quick-stat-card">
+                    <div class="qs-icon energy">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                        </svg>
+                    </div>
+                    <div class="qs-data">
+                        <span class="qs-value" id="totalEnergy">0</span>
+                        <span class="qs-unit">kWh</span>
+                    </div>
+                    <span class="qs-label">Згенеровано всього</span>
+                    <div class="qs-change positive">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="18 15 12 9 6 15" />
+                        </svg>
+                        <span id="energyChange">+12.5%</span>
+                    </div>
+                </div>
+
+                <div class="quick-stat-card">
+                    <div class="qs-icon savings">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" />
+                            <path d="M12 18V6" />
+                        </svg>
+                    </div>
+                    <div class="qs-data">
+                        <span class="qs-value" id="totalSavings">0</span>
+                        <span class="qs-unit">UAH</span>
+                    </div>
+                    <span class="qs-label">Зекономлено</span>
+                    <div class="qs-change positive">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="18 15 12 9 6 15" />
+                        </svg>
+                        <span id="savingsChange">+8.3%</span>
+                    </div>
+                </div>
+
+                <div class="quick-stat-card">
+                    <div class="qs-icon efficiency">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                        </svg>
+                    </div>
+                    <div class="qs-data">
+                        <span class="qs-value" id="avgEfficiency">0</span>
+                        <span class="qs-unit">%</span>
+                    </div>
+                    <span class="qs-label">Середня ефективність</span>
+                    <div class="qs-change positive">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="18 15 12 9 6 15" />
+                        </svg>
+                        <span id="efficiencyChange">+2.1%</span>
+                    </div>
+                </div>
+
+                <div class="quick-stat-card">
+                    <div class="qs-icon co2">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M2 22c1.25-.987 2.27-1.975 3.9-2.2a5.56 5.56 0 0 1 3.8 1.5 4 4 0 0 0 6.187-2.353 3.5 3.5 0 0 0 3.69-5.116A3.5 3.5 0 0 0 20.95 8 3.5 3.5 0 1 0 16 3.05a3.5 3.5 0 0 0-5.831 1.373 3.5 3.5 0 0 0-5.116 3.69 4 4 0 0 0-2.348 6.155C3.499 15.42 4.409 16.712 4.2 18.1 3.926 19.743 3.014 20.732 2 22" />
+                        </svg>
+                    </div>
+                    <div class="qs-data">
+                        <span class="qs-value" id="co2Saved">0</span>
+                        <span class="qs-unit">kg</span>
+                    </div>
+                    <span class="qs-label">CO2 збережено</span>
+                    <div class="qs-change positive">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="18 15 12 9 6 15" />
+                        </svg>
+                        <span id="co2Change">+15.7%</span>
+                    </div>
+                </div>
+
+                <div class="quick-stat-card">
+                    <div class="qs-icon uptime">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <polyline points="12 6 12 12 16 14" />
+                        </svg>
+                    </div>
+                    <div class="qs-data">
+                        <span class="qs-value" id="systemUptime">0</span>
+                        <span class="qs-unit">%</span>
+                    </div>
+                    <span class="qs-label">Uptime systemy</span>
+                    <div class="qs-change positive">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="18 15 12 9 6 15" />
+                        </svg>
+                        <span>99.9%</span>
+                    </div>
+                </div>
+
+                <div class="quick-stat-card">
+                    <div class="qs-icon cycles">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                            <path d="M3 3v5h5" />
+                        </svg>
+                    </div>
+                    <div class="qs-data">
+                        <span class="qs-value" id="chargeCycles">0</span>
+                        <span class="qs-unit"></span>
+                    </div>
+                    <span class="qs-label">Tsykliv zaryadky</span>
+                    <div class="qs-change neutral">
+                        <span>Normal</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Charts Grid -->
+            <div class="charts-grid">
+
+                <!-- Energy Generation Chart -->
+                <section class="chart-section energy-chart">
+                    <div class="section-header">
+                        <div class="section-badge energy">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="5" />
+                                <line x1="12" y1="1" x2="12" y2="3" />
+                                <line x1="12" y1="21" x2="12" y2="23" />
+                            </svg>
+                        </div>
+                        <h2>Generatsiya energii</h2>
+                        <div class="chart-actions">
+                            <button class="chart-btn active" data-type="line">Liniya</button>
+                            <button class="chart-btn" data-type="bar">Stovptsi</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-canvas" id="energyChart">
+                            <!-- Chart bars will be generated by JS -->
+                        </div>
+                        <div class="chart-labels" id="energyLabels">
+                            <!-- Labels will be generated by JS -->
+                        </div>
+                    </div>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <span class="legend-color generation"></span>
+                            <span>Generatsiya</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color consumption"></span>
+                            <span>Spozhyvannya</span>
+                        </div>
+                    </div>
+                    <div class="chart-summary">
+                        <div class="summary-item">
+                            <span class="summary-label">Maksymum</span>
+                            <span class="summary-value" id="maxGeneration">-- Wh</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Minimum</span>
+                            <span class="summary-value" id="minGeneration">-- Wh</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Serednye</span>
+                            <span class="summary-value" id="avgGeneration">-- Wh</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Vsogo</span>
+                            <span class="summary-value" id="totalGenerationChart">-- kWh</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Battery Performance Chart -->
+                <section class="chart-section battery-chart">
+                    <div class="section-header">
+                        <div class="section-badge battery">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="7" width="18" height="10" rx="2" />
+                                <path d="M22 11v2" />
+                            </svg>
+                        </div>
+                        <h2>Produktyvnist batareyi</h2>
+                    </div>
+                    <div class="battery-stats-grid">
+                        <div class="battery-stat-card">
+                            <div class="bs-ring">
+                                <svg viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="40" class="ring-bg" />
+                                    <circle cx="50" cy="50" r="40" class="ring-fill" id="batteryHealthRing" />
+                                </svg>
+                                <div class="bs-value" id="batteryHealth">98%</div>
+                            </div>
+                            <span class="bs-label">Zdorovya</span>
+                        </div>
+                        <div class="battery-stat-card">
+                            <div class="bs-ring">
+                                <svg viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="40" class="ring-bg" />
+                                    <circle cx="50" cy="50" r="40" class="ring-fill capacity"
+                                        id="batteryCapacityRing" />
+                                </svg>
+                                <div class="bs-value" id="batteryCapacity">95%</div>
+                            </div>
+                            <span class="bs-label">Yemnist</span>
+                        </div>
+                        <div class="battery-stat-card">
+                            <div class="bs-ring">
+                                <svg viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="40" class="ring-bg" />
+                                    <circle cx="50" cy="50" r="40" class="ring-fill efficiency"
+                                        id="batteryEfficiencyRing" />
+                                </svg>
+                                <div class="bs-value" id="batteryEfficiency">92%</div>
+                            </div>
+                            <span class="bs-label">Efektyvnist</span>
+                        </div>
+                    </div>
+                    <div class="battery-history">
+                        <h4>Istoriya rivnya zaryadky</h4>
+                        <div class="battery-chart-container" id="batteryHistoryChart">
+                            <!-- Generated by JS -->
+                        </div>
+                    </div>
+                    <div class="battery-info-grid">
+                        <div class="battery-info-item">
+                            <span class="bi-label">Tsykliv zaryadky</span>
+                            <span class="bi-value" id="totalCycles">247</span>
+                        </div>
+                        <div class="battery-info-item">
+                            <span class="bi-label">Serednya napruha</span>
+                            <span class="bi-value" id="avgVoltage">12.4V</span>
+                        </div>
+                        <div class="battery-info-item">
+                            <span class="bi-label">Maks. temperatura</span>
+                            <span class="bi-value" id="maxTemp">38C</span>
+                        </div>
+                        <div class="battery-info-item">
+                            <span class="bi-label">Chas roboty</span>
+                            <span class="bi-value" id="operatingHours">1,847h</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Voltage Analysis -->
+                <section class="chart-section voltage-chart">
+                    <div class="section-header">
+                        <div class="section-badge voltage">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                            </svg>
+                        </div>
+                        <h2>Analiz napruhy</h2>
+                    </div>
+                    <div class="voltage-display">
+                        <div class="voltage-gauge-large">
+                            <div class="gauge-arc">
+                                <svg viewBox="0 0 200 120">
+                                    <path d="M20 100 A80 80 0 0 1 180 100" class="gauge-arc-bg" />
+                                    <path d="M20 100 A80 80 0 0 1 180 100" class="gauge-arc-fill" id="voltageArcFill" />
+                                </svg>
+                                <div class="gauge-needle" id="voltageNeedle"></div>
+                                <div class="gauge-value" id="currentVoltage">12.4V</div>
+                            </div>
+                            <div class="gauge-scale">
+                                <span>8V</span>
+                                <span>10V</span>
+                                <span>12V</span>
+                                <span>14V</span>
+                                <span>16V</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="voltage-stats">
+                        <div class="vs-item">
+                            <span class="vs-label">Minimum</span>
+                            <span class="vs-value low" id="minVoltage">10.2V</span>
+                        </div>
+                        <div class="vs-item">
+                            <span class="vs-label">Maksymum</span>
+                            <span class="vs-value high" id="maxVoltageVal">14.1V</span>
+                        </div>
+                        <div class="vs-item">
+                            <span class="vs-label">Serednye</span>
+                            <span class="vs-value" id="avgVoltageVal">12.4V</span>
+                        </div>
+                        <div class="vs-item">
+                            <span class="vs-label">Stabilnist</span>
+                            <span class="vs-value stable" id="voltageStability">97.3%</span>
+                        </div>
+                    </div>
+                    <div class="voltage-history" id="voltageHistoryChart">
+                        <!-- Generated by JS -->
+                    </div>
+                </section>
+
+                <!-- Light/Solar Analysis -->
+                <section class="chart-section light-chart">
+                    <div class="section-header">
+                        <div class="section-badge light">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="5" />
+                                <line x1="12" y1="1" x2="12" y2="3" />
+                                <line x1="12" y1="21" x2="12" y2="23" />
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                                <line x1="1" y1="12" x2="3" y2="12" />
+                                <line x1="21" y1="12" x2="23" y2="12" />
+                            </svg>
+                        </div>
+                        <h2>Sonyachnyi analiz</h2>
+                    </div>
+                    <div class="solar-overview">
+                        <div class="solar-main-stat">
+                            <div class="sms-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="5" />
+                                    <line x1="12" y1="1" x2="12" y2="3" />
+                                    <line x1="12" y1="21" x2="12" y2="23" />
+                                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                                </svg>
+                            </div>
+                            <div class="sms-data">
+                                <span class="sms-value" id="currentLight">845</span>
+                                <span class="sms-unit">lux</span>
+                            </div>
+                            <span class="sms-label">Potochna intensyvnist</span>
+                        </div>
+                        <div class="solar-conditions">
+                            <div class="sc-item">
+                                <span class="sc-icon sunny">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="5" />
+                                    </svg>
+                                </span>
+                                <span class="sc-label">Sonyachno</span>
+                                <span class="sc-value" id="sunnyHours">6.5h</span>
+                            </div>
+                            <div class="sc-item">
+                                <span class="sc-icon cloudy">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+                                    </svg>
+                                </span>
+                                <span class="sc-label">Khmarno</span>
+                                <span class="sc-value" id="cloudyHours">2.3h</span>
+                            </div>
+                            <div class="sc-item">
+                                <span class="sc-icon dark">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                                    </svg>
+                                </span>
+                                <span class="sc-label">Nich/Temno</span>
+                                <span class="sc-value" id="darkHours">15.2h</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="light-intensity-chart" id="lightIntensityChart">
+                        <!-- Generated by JS -->
+                    </div>
+                    <div class="solar-stats-grid">
+                        <div class="ssg-item">
+                            <span class="ssg-label">Pikovyi riven</span>
+                            <span class="ssg-value" id="peakLight">1,024 lux</span>
+                        </div>
+                        <div class="ssg-item">
+                            <span class="ssg-label">Sered. riven</span>
+                            <span class="ssg-value" id="avgLight">567 lux</span>
+                        </div>
+                        <div class="ssg-item">
+                            <span class="ssg-label">Efektyvnist panelei</span>
+                            <span class="ssg-value" id="panelEfficiency">94.2%</span>
+                        </div>
+                        <div class="ssg-item">
+                            <span class="ssg-label">UV indeks</span>
+                            <span class="ssg-value" id="uvIndex">7.3</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Detailed Analytics -->
+            <section class="detailed-analytics">
+                <div class="section-header">
+                    <div class="section-badge analytics">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M21 21H4.6C4.03995 21 3.75992 21 3.54601 20.891C3.35785 20.7951 3.20487 20.6422 3.10899 20.454C3 20.2401 3 19.9601 3 19.4V3" />
+                            <path d="m7 14 4-4 4 4 6-6" />
+                        </svg>
+                    </div>
+                    <h2>Detalnyy analiz</h2>
+                </div>
+
+                <div class="analytics-grid">
+                    <!-- Performance Metrics -->
+                    <div class="analytics-card performance">
+                        <h3>Pokaznyky produktyvnosti</h3>
+                        <div class="perf-metrics">
+                            <div class="perf-metric">
+                                <div class="pm-header">
+                                    <span class="pm-label">Koefitsiyent vykorystannya</span>
+                                    <span class="pm-value" id="utilizationRate">87.4%</span>
+                                </div>
+                                <div class="pm-bar">
+                                    <div class="pm-fill" id="utilizationBar" style="width: 87.4%"></div>
+                                </div>
+                            </div>
+                            <div class="perf-metric">
+                                <div class="pm-header">
+                                    <span class="pm-label">Efektyvnist peretvorennya</span>
+                                    <span class="pm-value" id="conversionRate">92.1%</span>
+                                </div>
+                                <div class="pm-bar">
+                                    <div class="pm-fill conversion" id="conversionBar" style="width: 92.1%"></div>
+                                </div>
+                            </div>
+                            <div class="perf-metric">
+                                <div class="pm-header">
+                                    <span class="pm-label">Nadiynost systemy</span>
+                                    <span class="pm-value" id="reliabilityRate">99.2%</span>
+                                </div>
+                                <div class="pm-bar">
+                                    <div class="pm-fill reliability" id="reliabilityBar" style="width: 99.2%"></div>
+                                </div>
+                            </div>
+                            <div class="perf-metric">
+                                <div class="pm-header">
+                                    <span class="pm-label">Yakist energii</span>
+                                    <span class="pm-value" id="powerQuality">95.8%</span>
+                                </div>
+                                <div class="pm-bar">
+                                    <div class="pm-fill quality" id="qualityBar" style="width: 95.8%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Energy Distribution -->
+                    <div class="analytics-card distribution">
+                        <h3>Rozpodil energii</h3>
+                        <div class="distribution-chart">
+                            <div class="donut-chart">
+                                <svg viewBox="0 0 200 200">
+                                    <circle cx="100" cy="100" r="70" class="donut-bg" />
+                                    <circle cx="100" cy="100" r="70" class="donut-segment generated"
+                                        id="generatedSegment" />
+                                    <circle cx="100" cy="100" r="70" class="donut-segment consumed"
+                                        id="consumedSegment" />
+                                    <circle cx="100" cy="100" r="70" class="donut-segment stored" id="storedSegment" />
+                                </svg>
+                                <div class="donut-center">
+                                    <span class="dc-value" id="totalDistribution">100%</span>
+                                    <span class="dc-label">Vsogo</span>
+                                </div>
+                            </div>
+                            <div class="distribution-legend">
+                                <div class="dl-item">
+                                    <span class="dl-color generated"></span>
+                                    <span class="dl-label">Zgenerovano</span>
+                                    <span class="dl-value" id="generatedPercent">45%</span>
+                                </div>
+                                <div class="dl-item">
+                                    <span class="dl-color consumed"></span>
+                                    <span class="dl-label">Spozhyto</span>
+                                    <span class="dl-value" id="consumedPercent">35%</span>
+                                </div>
+                                <div class="dl-item">
+                                    <span class="dl-color stored"></span>
+                                    <span class="dl-label">Zberezheno</span>
+                                    <span class="dl-value" id="storedPercent">20%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Comparison -->
+                    <div class="analytics-card comparison">
+                        <h3>Porivnyannya periodiv</h3>
+                        <div class="comparison-table">
+                            <div class="ct-header">
+                                <span>Pokaznyk</span>
+                                <span>Potochnyi</span>
+                                <span>Poperedni</span>
+                                <span>Zmina</span>
+                            </div>
+                            <div class="ct-row">
+                                <span>Generatsiya</span>
+                                <span id="currGen">2.4 kWh</span>
+                                <span id="prevGen">2.1 kWh</span>
+                                <span class="change positive" id="genChange">+14.3%</span>
+                            </div>
+                            <div class="ct-row">
+                                <span>Spozhyvannya</span>
+                                <span id="currCons">1.8 kWh</span>
+                                <span id="prevCons">1.9 kWh</span>
+                                <span class="change positive" id="consChange">-5.3%</span>
+                            </div>
+                            <div class="ct-row">
+                                <span>Efektyvnist</span>
+                                <span id="currEff">92.1%</span>
+                                <span id="prevEff">89.7%</span>
+                                <span class="change positive" id="effChange">+2.4%</span>
+                            </div>
+                            <div class="ct-row">
+                                <span>Uptime</span>
+                                <span id="currUp">99.9%</span>
+                                <span id="prevUp">99.8%</span>
+                                <span class="change positive" id="upChange">+0.1%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- System Events -->
+                    <div class="analytics-card events">
+                        <h3>Systemni podii</h3>
+                        <div class="events-list" id="eventsList">
+                            <!-- Generated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Historical Data -->
+            <section class="historical-data">
+                <div class="section-header">
+                    <div class="section-badge history">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                            <path d="M3 3v5h5" />
+                            <path d="M12 7v5l4 2" />
+                        </svg>
+                    </div>
+                    <h2>Istorychni dani</h2>
+                    <button class="export-btn" id="exportData">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                        Eksportuvaty
+                    </button>
+                </div>
+
+                <div class="history-table-container">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Data/Chas</th>
+                                <th>Batareya</th>
+                                <th>Napruha</th>
+                                <th>Osvitlennya</th>
+                                <th>Generatsiya</th>
+                                <th>Spozhyvannya</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                            <!-- Generated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-pagination">
+                    <button class="page-btn" id="prevPage">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15 18 9 12 15 6" />
+                        </svg>
+                    </button>
+                    <span class="page-info">Storinka <span id="currentPage">1</span> z <span
+                            id="totalPages">10</span></span>
+                    <button class="page-btn" id="nextPage">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6" />
+                        </svg>
+                    </button>
+                </div>
+            </section>
+
+            <!-- System Health -->
+            <section class="system-health">
+                <div class="section-header">
+                    <div class="section-badge health">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                        </svg>
+                    </div>
+                    <h2>Zdorovya systemy</h2>
+                </div>
+
+                <div class="health-grid">
+                    <div class="health-card">
+                        <div class="hc-icon solar-panel">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" />
+                                <line x1="8" y1="3" x2="8" y2="17" />
+                                <line x1="16" y1="3" x2="16" y2="17" />
+                                <line x1="2" y1="10" x2="22" y2="10" />
+                                <line x1="12" y1="17" x2="12" y2="21" />
+                                <line x1="8" y1="21" x2="16" y2="21" />
+                            </svg>
+                        </div>
+                        <div class="hc-info">
+                            <span class="hc-title">Sonyachna panel</span>
+                            <span class="hc-status good" id="panelStatus">Vidminno</span>
+                        </div>
+                        <div class="hc-health-bar">
+                            <div class="hc-fill" id="panelHealthBar" style="width: 98%"></div>
+                        </div>
+                        <span class="hc-percent" id="panelHealthPercent">98%</span>
+                    </div>
+
+                    <div class="health-card">
+                        <div class="hc-icon battery-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="7" width="18" height="10" rx="2" />
+                                <path d="M22 11v2" />
+                            </svg>
+                        </div>
+                        <div class="hc-info">
+                            <span class="hc-title">Batareya</span>
+                            <span class="hc-status good" id="batteryStatus">Dobre</span>
+                        </div>
+                        <div class="hc-health-bar">
+                            <div class="hc-fill" id="batteryHealthBar" style="width: 95%"></div>
+                        </div>
+                        <span class="hc-percent" id="batteryHealthPercent">95%</span>
+                    </div>
+
+                    <div class="health-card">
+                        <div class="hc-icon controller">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="4" y="4" width="16" height="16" rx="2" />
+                                <rect x="9" y="9" width="6" height="6" />
+                                <line x1="9" y1="1" x2="9" y2="4" />
+                                <line x1="15" y1="1" x2="15" y2="4" />
+                                <line x1="9" y1="20" x2="9" y2="23" />
+                                <line x1="15" y1="20" x2="15" y2="23" />
+                            </svg>
+                        </div>
+                        <div class="hc-info">
+                            <span class="hc-title">ESP32 Kontroller</span>
+                            <span class="hc-status good" id="controllerStatus">Aktyvnyi</span>
+                        </div>
+                        <div class="hc-health-bar">
+                            <div class="hc-fill" id="controllerHealthBar" style="width: 100%"></div>
+                        </div>
+                        <span class="hc-percent" id="controllerHealthPercent">100%</span>
+                    </div>
+
+                    <div class="health-card">
+                        <div class="hc-icon sensors">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="3" />
+                                <path
+                                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9" />
+                            </svg>
+                        </div>
+                        <div class="hc-info">
+                            <span class="hc-title">Datchyky</span>
+                            <span class="hc-status good" id="sensorsStatus">Kalibrovanyi</span>
+                        </div>
+                        <div class="hc-health-bar">
+                            <div class="hc-fill" id="sensorsHealthBar" style="width: 97%"></div>
+                        </div>
+                        <span class="hc-percent" id="sensorsHealthPercent">97%</span>
+                    </div>
+
+                    <div class="health-card">
+                        <div class="hc-icon network">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12.55a11 11 0 0 1 14.08 0" />
+                                <path d="M1.42 9a16 16 0 0 1 21.16 0" />
+                                <path d="M8.53 16.11a6 6 0 0 1 6.95 0" />
+                                <line x1="12" y1="20" x2="12.01" y2="20" />
+                            </svg>
+                        </div>
+                        <div class="hc-info">
+                            <span class="hc-title">WiFi Zvyazok</span>
+                            <span class="hc-status good" id="networkStatus">Stabilnyi</span>
+                        </div>
+                        <div class="hc-health-bar">
+                            <div class="hc-fill" id="networkHealthBar" style="width: 92%"></div>
+                        </div>
+                        <span class="hc-percent" id="networkHealthPercent">92%</span>
+                    </div>
+
+                    <div class="health-card">
+                        <div class="hc-icon server">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
+                                <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
+                                <line x1="6" y1="6" x2="6.01" y2="6" />
+                                <line x1="6" y1="18" x2="6.01" y2="18" />
+                            </svg>
+                        </div>
+                        <div class="hc-info">
+                            <span class="hc-title">Server</span>
+                            <span class="hc-status good" id="serverStatus">Online</span>
+                        </div>
+                        <div class="hc-health-bar">
+                            <div class="hc-fill" id="serverHealthBar" style="width: 100%"></div>
+                        </div>
+                        <span class="hc-percent" id="serverHealthPercent">100%</span>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>HelioCore AI v1.0 | Statystyka ta Analityka</p>
+            <p class="footer-tech">Real-time Data Processing</p>
+        </footer>
+    </div>
+
+    <script src="js/statistics.js"></script>
+</body>
+
+</html>
