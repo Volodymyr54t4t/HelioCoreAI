@@ -162,16 +162,24 @@ function stopDemoData() {
 }
 
 function sendDemoUpdate() {
-    // Генеруємо реалістичні демо-дані
-    const t = parseFloat((20 + Math.random() * 8).toFixed(1));
-    const h = Math.round(45 + Math.random() * 20);
-    const g = Math.round(300 + Math.random() * 150);
-    const statusStr = g > 600 ? 'critical' : g > 400 ? 'warning' : relayOn ? 'optimal' : 'normal';
+    // Імітуємо добовий цикл сонця: світанок, денний пік і спад увечері.
+    const now = new Date();
+    const hour = now.getHours() + now.getMinutes() / 60;
+    const daylight = Math.max(0, Math.sin(Math.PI * (hour - 6) / 14));
+    const cloudFactor = 0.82 + Math.sin(Date.now() / 52000) * 0.10 + Math.random() * 0.08;
+    const sunlight = Math.max(0, Math.min(1000, Math.round(950 * daylight * cloudFactor)));
+    const charging = sunlight > 120;
+    const t = parseFloat((19 + daylight * 9 + Math.random() * 1.5).toFixed(1));
+    const h = Math.round(58 - daylight * 13 + Math.random() * 4);
+    const g = Math.round(320 + Math.random() * 35);
+    const battery = Math.min(100, Math.round(62 + daylight * 28 + Math.sin(Date.now() / 180000) * 3));
+    const voltage = parseFloat((3.55 + daylight * 1.25 + Math.random() * 0.12).toFixed(2));
+    const statusStr = battery < 20 ? 'critical' : battery < 35 ? 'warning' : charging ? 'optimal' : 'normal';
 
     const raw = {
-        b: 100, v: 5.0, t, h, g,
+        b: battery, v: voltage, t, h, g,
         s: statusStr,
-        r: relayOn,
+        r: charging,
         bat: batRelayOn,
     };
     const data = buildUIData(raw);
@@ -272,8 +280,8 @@ function buildUIData(raw) {
     const isCharging = raw.r === true;
 
     return {
-        battery: 100,
-        voltage: 5.0,
+        battery: Math.max(0, Math.min(100, Number(raw.b ?? 100))),
+        voltage: Number(raw.v ?? 5),
         temp:    raw.t ?? null,
         hum:     raw.h ?? null,
         gas:     raw.g ?? 0,
@@ -381,15 +389,17 @@ function updateBatRelayUI() {
 
 function updateBattery(battery, isCharging) {
     elements.batteryValue.textContent = battery;
-    elements.batteryProgress.style.width = '100%';
+    elements.batteryProgress.style.width = `${battery}%`;
     elements.batteryProgress.classList.remove('low', 'medium', 'charging');
+    if (battery < 20) elements.batteryProgress.classList.add('low');
+    else if (battery < 50) elements.batteryProgress.classList.add('medium');
     if (isCharging) {
         elements.batteryProgress.classList.add('charging');
         elements.batteryStatusText.textContent = 'Заряджається ⚡';
         elements.batteryStatusText.classList.add('charging-text-anim');
         elements.chargingIndicator.style.display = 'block';
     } else {
-        elements.batteryStatusText.textContent = 'Повний заряд';
+        elements.batteryStatusText.textContent = battery >= 95 ? 'Заряд повний' : 'Очікує заряджання';
         elements.batteryStatusText.classList.remove('charging-text-anim');
         elements.chargingIndicator.style.display = 'none';
     }
