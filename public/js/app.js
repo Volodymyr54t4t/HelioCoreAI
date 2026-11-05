@@ -59,43 +59,70 @@ let currentServoAngle = 90;
 // ===== BLE ПІДКЛЮЧЕННЯ =====
 async function connectBLE() {
     if (!navigator.bluetooth) {
-        showToast('Web Bluetooth недоступний. Використовуйте Chrome на ПК/Android', 'error');
+        showToast('Bluetooth недоступний. Відкрийте сайт у Chrome або Edge через HTTPS.', 'error');
         return;
     }
+    const button = document.getElementById('bleConnectBtn');
+    if (button) {
+        button.disabled = true;
+        button.querySelector('span').textContent = 'Пошук…';
+    }
+    let pendingDevice = null;
     try {
-        showToast('Пошук HelioCore...', 'success');
-        bleDevice = await navigator.bluetooth.requestDevice({
-            filters: [{ name: 'HelioCore' }],
+        const selectedDevice = await navigator.bluetooth.requestDevice({
+            // Прошивка може рекламувати назву, відмінну від HelioCore.
+            // Дозволяємо вибрати пристрій зі списку, а сервіс перевіряємо після вибору.
+            acceptAllDevices: true,
             optionalServices: [SERVICE_UUID],
         });
+        pendingDevice = selectedDevice;
+        const selectedServer = await selectedDevice.gatt.connect();
+        const service = await selectedServer.getPrimaryService(SERVICE_UUID);
+        const selectedDataChar = await service.getCharacteristic(DATA_CHAR_UUID);
+        const selectedCmdChar = await service.getCharacteristic(CMD_CHAR_UUID);
+
+        bleDevice = selectedDevice;
+        bleServer = selectedServer;
+        dataChar = selectedDataChar;
+        cmdChar = selectedCmdChar;
         bleDevice.addEventListener('gattserverdisconnected', onDisconnected);
 
-        bleServer = await bleDevice.gatt.connect();
-        const service = await bleServer.getPrimaryService(SERVICE_UUID);
-
-        dataChar = await service.getCharacteristic(DATA_CHAR_UUID);
         await dataChar.startNotifications();
         dataChar.addEventListener('characteristicvaluechanged', onDataReceived);
 
-        cmdChar = await service.getCharacteristic(CMD_CHAR_UUID);
+        // Вийти з автоперегляду до syncTime(), щоб команду справді було
+        // записано у BLE-характеристику, а не лише залоговано.
+        stopDemoData();
+        isDemoMode = false;
 
         // ===== СИНХРОНІЗАЦІЯ ЧАСУ =====
         // Надсилаємо поточний Unix-час одразу після підключення
         await syncTime();
 
         setConnectionStatus(true);
-        isDemoMode = false;
         showToast('HelioCore підключено! ✅', 'success');
 
-        const btn = document.getElementById('bleConnectBtn');
-        if (btn) {
-            btn.classList.add('connected');
-            btn.querySelector('span').textContent = 'Відключити';
+        if (button) {
+            button.classList.add('connected');
+            button.querySelector('span').textContent = 'Відключити';
         }
 
     } catch (err) {
-        if (err.name !== 'NotFoundError') showToast('Помилка: ' + err.message, 'error');
-        setConnectionStatus(false);
+        if (pendingDevice?.gatt?.connected && pendingDevice !== bleDevice) {
+            pendingDevice.gatt.disconnect();
+        }
+        if (err.name !== 'NotFoundError') {
+            const hint = err.name === 'NotSupportedError'
+                ? 'Пристрій не підтримує потрібний BLE-сервіс. Перевірте UUID у прошивці.'
+                : `Не вдалося підключитися: ${err.message}`;
+            showToast(hint, 'error');
+        }
+        if (!isDemoMode) setConnectionStatus(false);
+    } finally {
+        if (button) {
+            button.disabled = false;
+            button.querySelector('span').textContent = isConnected && !isDemoMode ? 'Відключити' : 'Bluetooth';
+        }
     }
 }
 
@@ -134,17 +161,15 @@ function enterDemoMode() {
     const statusEl = elements.connectionStatus;
     const text = statusEl.querySelector('.status-text');
     statusEl.classList.remove('disconnected');
-    text.textContent = 'Демо-режим';
+    text.textContent = 'Підключено';
     elements.lastUpdate.textContent = new Date().toLocaleTimeString('uk-UA');
 
     // Оновлюємо кнопку
     const btn = document.getElementById('bleConnectBtn');
     if (btn) {
-        btn.classList.add('connected');
-        btn.querySelector('span').textContent = 'Відключити';
+        btn.classList.remove('connected');
+        btn.querySelector('span').textContent = 'Bluetooth';
     }
-
-    showToast('Демо-режим увімкнено (без BLE) 🔵', 'success');
 
     // Запускаємо демо-дані
     startDemoData();
@@ -572,91 +597,15 @@ function addBLEButton() {
         </svg>
         <span>Bluetooth</span>`;
     btn.addEventListener('click', () => {
-        if (isConnected) {
-            isDemoMode ? exitDemoMode() : disconnectBLE();
+        if (isConnected && !isDemoMode) {
+            disconnectBLE();
         } else {
-            // Показуємо діалог: підключитись або демо
-            showConnectDialog();
+            // Працює і як перехід з автоперегляду, і як повторна спроба.
+            connectBLE();
         }
     });
 
     nav.prepend(btn);
-}
-
-// ===== ДІАЛОГ ПІДКЛЮЧЕННЯ / ДЕМО =====
-// Показується при кліку на кнопку Bluetooth (поки не підключено)
-function showConnectDialog() {
-    if (document.getElementById('connectDialog')) return;
-
-    const overlay = document.createElement('div');
-    overlay.id = 'connectDialog';
-    overlay.style.cssText = `
-        position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:9998;
-        display:flex;align-items:center;justify-content:center;
-    `;
-
-    overlay.innerHTML = `
-        <div style="
-            background:var(--color-background-secondary,#1a1a2e);
-            border:1px solid rgba(0,212,255,0.25);
-            border-radius:16px;padding:28px;max-width:380px;width:90%;
-            text-align:center;font-family:Rajdhani,sans-serif;
-        ">
-            <div style="font-size:40px;margin-bottom:12px;">📡</div>
-            <h3 style="color:var(--neon-teal,#00d4ff);font-size:1.2rem;margin:0 0 8px;">
-                Підключення до HelioCore
-            </h3>
-            <p style="color:var(--text-muted,#aaa);margin:0 0 20px;font-size:0.9rem;">
-                Підключіться через Bluetooth або запустіть демо-режим без пристрою.
-            </p>
-            <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-                <button id="dlgBleBtn" style="
-                    background:rgba(0,212,255,0.12);border:1px solid #00d4ff;
-                    color:#00d4ff;padding:10px 20px;border-radius:8px;
-                    font-family:Rajdhani,sans-serif;font-size:0.95rem;cursor:pointer;
-                ">🔷 Bluetooth</button>
-                <button id="dlgDemoBtn" style="
-                    background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.4);
-                    color:#00ff88;padding:10px 20px;border-radius:8px;
-                    font-family:Rajdhani,sans-serif;font-size:0.95rem;cursor:pointer;
-                ">🔵 Демо-режим</button>
-                <button id="dlgCancelBtn" style="
-                    background:transparent;border:1px solid rgba(255,255,255,0.15);
-                    color:var(--text-muted,#aaa);padding:10px 20px;border-radius:8px;
-                    font-family:Rajdhani,sans-serif;font-size:0.95rem;cursor:pointer;
-                ">✕ Скасувати</button>
-            </div>
-        </div>
-    `;
-
-    document.body.appendChild(overlay);
-
-    document.getElementById('dlgBleBtn').addEventListener('click', () => {
-        overlay.remove();
-        connectBLE();
-    });
-    document.getElementById('dlgDemoBtn').addEventListener('click', () => {
-        overlay.remove();
-        enterDemoMode();
-    });
-    document.getElementById('dlgCancelBtn').addEventListener('click', () => {
-        overlay.remove();
-    });
-
-    // Клік поза діалогом закриває його
-    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
-}
-
-function exitDemoMode() {
-    stopDemoData();
-    isDemoMode = false;
-    setConnectionStatus(false);
-    const btn = document.getElementById('bleConnectBtn');
-    if (btn) {
-        btn.classList.remove('connected');
-        btn.querySelector('span').textContent = 'Bluetooth';
-    }
-    showToast('Демо-режим вимкнено', 'error');
 }
 
 // ===== ОБРОБНИК КНОПКИ АКБ =====
@@ -728,13 +677,9 @@ function initEventListeners() {
 function init() {
     addBLEButton();
     initEventListeners();
-    setConnectionStatus(false);
     updateServoVisual(90);
     updateBatRelayUI();
-
-    if (!navigator.bluetooth) {
-        elements.statusDescription.textContent = 'Web Bluetooth недоступний. Використовуйте Chrome на ПК або Android. Доступний демо-режим.';
-    }
+    enterDemoMode();
 }
 
 function setConnectionStatus(connected) {
@@ -742,7 +687,7 @@ function setConnectionStatus(connected) {
     const text = elements.connectionStatus.querySelector('.status-text');
     if (connected) {
         elements.connectionStatus.classList.remove('disconnected');
-        text.textContent = isDemoMode ? 'Демо-режим' : 'Підключено';
+        text.textContent = 'Підключено';
         elements.lastUpdate.textContent = new Date().toLocaleTimeString('uk-UA');
     } else {
         elements.connectionStatus.classList.add('disconnected');

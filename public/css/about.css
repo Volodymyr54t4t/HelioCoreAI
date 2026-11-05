@@ -1063,3 +1063,22 @@ body {
         padding: 12px 18px;
     }
 }
+
+/* Shared page width and balanced content cards. */
+.container { max-width: 1500px; padding: clamp(14px, 2.4vw, 32px); }
+.header { gap: 20px; flex-wrap: wrap; padding: clamp(18px, 2.2vw, 30px); }
+.header-nav { flex: 1 1 500px; justify-content: center; }
+.idea-grid, .components-grid, .tech-grid, .design-grid { gap: 18px; align-items: stretch; }
+body { background: radial-gradient(ellipse at 50% -20%, #14232b 0%, var(--bg-primary) 58%); }
+.header, .hero, .section, .idea-card, .component-block, .tech-item, .design-item,
+.stat-item, .mission-section { box-shadow: 0 12px 36px rgba(0,0,0,.2); }
+.idea-card, .component-block, .tech-item, .design-item, .stat-item { border-color: rgba(148,163,184,.16); }
+.idea-grid, .components-grid, .design-grid { align-items: stretch; }
+@media (max-width: 768px) {
+    .container { padding: 14px; }
+    .header-nav { flex-basis: 100%; }
+}
+@media (max-width: 520px) {
+    .header-nav { gap: 8px; }
+    .nav-link { padding: 9px 12px; }
+}

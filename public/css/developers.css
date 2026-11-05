@@ -1074,3 +1074,23 @@ body {
     gap: 10px;
   }
 }
+
+/* Shared page width and balanced content cards. */
+.container { max-width: 1500px; padding: clamp(14px, 2.4vw, 32px); }
+.header { gap: 20px; flex-wrap: wrap; padding: clamp(18px, 2.2vw, 30px); }
+.header-nav { flex: 1 1 500px; justify-content: center; }
+.developers-grid { align-items: stretch; gap: 20px; }
+body { background: radial-gradient(ellipse at 50% -20%, #14232b 0%, var(--bg-dark) 58%); }
+.header, .hero, .developer-card, .achievement-item, .stats-card {
+  backdrop-filter: blur(14px);
+  box-shadow: 0 12px 36px rgba(0,0,0,.2);
+}
+.developer-card, .achievement-item, .stats-card { border-color: rgba(148,163,184,.16); }
+@media (max-width: 768px) {
+  .container { padding: 14px; }
+  .header-nav { flex-basis: 100%; }
+}
+@media (max-width: 520px) {
+  .header-nav { gap: 8px; }
+  .nav-link { padding: 9px 12px; }
+}

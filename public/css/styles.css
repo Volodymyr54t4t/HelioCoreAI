@@ -452,3 +452,53 @@ body {
     .controls-grid { grid-template-columns:1fr; }
     .servo-controls { grid-template-columns:1fr 1fr 1fr; }
 }
+
+/* ===== ВИРІВНЯНИЙ АДАПТИВНИЙ ДАШБОРД ===== */
+.container { max-width: 1500px; padding: clamp(14px, 2.4vw, 32px); }
+.header { gap: 20px; flex-wrap: wrap; padding: clamp(18px, 2.2vw, 30px); box-shadow: 0 14px 42px rgba(0,0,0,.24); }
+.header-nav { flex: 1 1 500px; justify-content: center; }
+.header-status { min-width: 150px; }
+.dashboard { display: grid; gap: 22px; }
+.status-banner, .metrics-grid, .dashboard > section { margin-bottom: 0; }
+.status-banner { min-height: 110px; }
+.metrics-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; }
+.metric-card { min-height: 230px; padding: clamp(18px, 1.8vw, 26px); display: flex; flex-direction: column; }
+.metric-card .card-header { min-height: 46px; margin-bottom: 18px; }
+.metric-card .metric-value { margin-bottom: auto; padding: 6px 0 24px; }
+.metric-value span:first-child { font-size: clamp(2.3rem, 3vw, 3.25rem); }
+.ai-section, .control-section { margin-bottom: 0; }
+.footer { padding: 36px 16px 18px; }
+body { background: radial-gradient(ellipse at 50% -20%, #14232b 0%, var(--bg-primary) 58%); }
+.grid-overlay { opacity: .55; mask-image: linear-gradient(to bottom, black, transparent 88%); }
+.header, .status-banner, .metric-card, .ai-section, .control-section {
+    backdrop-filter: blur(14px);
+    box-shadow: 0 12px 36px rgba(0,0,0,.2);
+}
+.metric-card { border-color: rgba(148, 163, 184, .14); }
+.metric-card:hover { transform: translateY(-4px); }
+.ai-section, .control-section { padding: clamp(20px, 2.5vw, 32px); }
+.recommendation-card { min-height: 76px; }
+.control-btn { min-height: 150px; }
+.nav-link:focus-visible, .control-btn:focus-visible, button:focus-visible {
+    outline: 2px solid var(--neon-cyan); outline-offset: 3px;
+}
+#bleConnectBtn { transition: background .2s ease, border-color .2s ease, color .2s ease, opacity .2s ease; }
+#bleConnectBtn:disabled { opacity: .72; cursor: progress; }
+
+@media (max-width: 1200px) {
+    .metrics-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 768px) {
+    .container { padding: 14px; }
+    .header { gap: 16px; }
+    .header-nav { flex-basis: 100%; }
+    .metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .metric-card { min-height: 215px; }
+    .status-banner { min-height: 0; }
+}
+@media (max-width: 520px) {
+    .metrics-grid { grid-template-columns: 1fr; }
+    .metric-card { min-height: 190px; }
+    .header-nav { gap: 8px; }
+    .nav-link { padding: 9px 12px; }
+}
